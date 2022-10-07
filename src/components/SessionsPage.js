@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import Footer from "./Footer";
-
 
 export default function SessionsList() {
 
@@ -23,7 +21,7 @@ export default function SessionsList() {
         });
 
         promise.catch(err => {
-            console.log(err.response.data);
+            alert(err.response.data);
         });
     }, []);
 
@@ -44,12 +42,17 @@ export default function SessionsList() {
                 <li key={s.id}>
                     <h2>{s.weekday} - {s.date}</h2>
                     {s.showtimes.map((st) =>
-                        <Link to={`/sessoes/${st.id}`}>
+                        <Link to={`/sessoes/${idFilme}/assentos/${st.id}`}>
                             <button key={st.id}>{st.name}</button>
                         </Link>)}
                 </li>
             )}
-            <Footer />
+
+            <ContainerFooter>
+                <img src={sessions.posterURL} alt={sessions.title} />
+                <h2>{sessions.title}</h2>
+            </ContainerFooter>
+
         </ContainerSessions>
 
     )
@@ -86,5 +89,31 @@ button {
 }
 li {
     list-style-type: none;
+}
+`
+const ContainerFooter = styled.div`
+    background-color: #DFE6ED;
+    border: 1px solid #9EADBA;
+    width: 100%;
+    height: 117px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+img {
+    border-radius: 2px;
+    border: 3px solid #FFFFFF;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1); 
+    height: 75px;
+    width: 52px;
+    margin-left: 18px;
+}
+h2 {
+    color: #293845;;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 31px;
 }
 `
