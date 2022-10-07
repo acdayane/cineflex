@@ -7,11 +7,11 @@ import { Link } from "react-router-dom";
 import Footer from "./Footer";
 
 
-export default function SectionsList() {
+export default function SessionsList() {
 
     const { idFilme } = useParams();
 
-    const [sections, setSections] = useState(null);
+    const [sessions, setSessions] = useState(null);
 
     const URL = "https://mock-api.driven.com.br/api/v5/cineflex/movies/" + idFilme + "/showtimes"
 
@@ -19,7 +19,7 @@ export default function SectionsList() {
         const promise = axios.get(URL);
 
         promise.then(res => {
-            setSections(res.data);
+            setSessions(res.data);
         });
 
         promise.catch(err => {
@@ -28,19 +28,19 @@ export default function SectionsList() {
     }, []);
 
 
-    if (sections === null) {
+    if (sessions === null) {
         return (
-            <ContainerSections>
+            <ContainerSessions>
                 <img src="http://2.bp.blogspot.com/-2RqriVTKhi4/UNnFBTiuzdI/AAAAAAAALK4/3-UccrBLu7w/s1600/Gif+Carregando+-+PremiumDesign3D+(9).gif" alt={'Carregando...'} />
-            </ContainerSections>
+            </ContainerSessions>
         )
     }
 
 
     return (
-        <ContainerSections>
+        <ContainerSessions>
             <h1>Selecione o horário</h1>
-            {sections.days.map((s) =>
+            {sessions.days.map((s) =>
                 <li key={s.id}>
                     <h2>{s.weekday} - {s.date}</h2>
                     {s.showtimes.map((st) =>
@@ -50,12 +50,12 @@ export default function SectionsList() {
                 </li>
             )}
             <Footer />
-        </ContainerSections>
+        </ContainerSessions>
 
     )
 }
 
-const ContainerSections = styled.div`
+const ContainerSessions = styled.div`
     background-color: #FFFFFF;
     width: 100%;
     margin-top: 65px; 
