@@ -5,12 +5,14 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import FooterSeats from "./FooterSeats";
-import ContainerSeats from "./ContainerSeats";
+import ButtonSeat from "./ButtonSeat";
 
 
-export default function SeatsList() {
+export default function SeatsPage({data, setData, array}) {
 
-    const ids = [50]
+
+    const ids = [array]
+    console.log(ids)
     const { idSessao } = useParams();
     const navigate = useNavigate();
 
@@ -48,12 +50,22 @@ export default function SeatsList() {
 
         e.preventDefault();
 
+        data.nameBuyer = name;
+        data.cpfBuyer = cpf;
+        data.title = seat.movie.title;
+        data.date = seat.day.date;
+        data.hour = seat.name;
+        const newData = (data);
+        setData(newData);
+
         const URL = ('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many')
         const body = { ids, name, cpf }
+        console.log(body)
 
         const promise = axios.post(URL, body)
 
-        promise.then(() => {
+        promise.then((res) => {
+            console.log(res.data)
             navigate(`/sessoes/${seat.movie.id}/assentos/${idSessao}/sucesso`);
         })
 
@@ -65,16 +77,21 @@ export default function SeatsList() {
 
 
     return (
-        <ContainerMain>    
- 
+        <ContainerMain>
+
             <h1>Selecione o(s) assento(s)</h1>
 
-            <ContainerSeats obj={seat} />
-        
-            {/* <SuccessPage title={seat.movie.title} date={seat.day.date}
-                hour={seat.name} nameBuyer={name} cpfBuyer={cpf}
-            /> */}
-       
+            <ContainerSeats>
+                {seat.seats.map((s) =>
+                    <ButtonSeat
+                        key={s.id}
+                        name={s.name}
+                        isAvailable={s.isAvailable}
+                        array={array}
+                    />
+                )}
+            </ContainerSeats>
+
             <ContainerButton>
                 <BoxButton>
                     <button style={{ backgroundColor: '#1AAE9E' }}></button>
@@ -116,9 +133,9 @@ export default function SeatsList() {
                 <ButtonReserve>
                     <button type="submit">Reservar assento(s)</button>
                 </ButtonReserve>
-                
+
             </form>
-        
+
             <FooterSeats poster={seat.movie.posterURL} title={seat.movie.title}
                 weekday={seat.day.weekday} hour={seat.name}
             />
@@ -145,6 +162,29 @@ h1 {
     font-weight: 400;
     font-size: 24px;
     padding: 30px;
+}
+`
+
+const ContainerSeats = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    flex-wrap: wrap;
+    width: 90%;
+button {
+    color: #000000;
+    background-color: #C3CFD9;
+    width: 25px;
+    height: 25px;
+    font-size: 11px;
+    margin: 3px;
+    border-radius: 12px;
+    border: 1px solid #808F9D;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1); 
+    cursor: pointer;
+}
+li {
+    list-style-type: none;
 }
 `
 

@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { useNavigate } from "react-router-dom";
 
 
-export default function SuccessPage({ title, date, hour, nameBuyer, cpfBuyer }) {
+export default function SuccessPage({data, array}) {
 
 
     const navigate = useNavigate();
@@ -21,14 +21,17 @@ export default function SuccessPage({ title, date, hour, nameBuyer, cpfBuyer }) 
             <ContainerData>
 
                 <h2>Filme e sessão</h2>
-                <p>{title}</p>
-                <p>{date} - {hour}</p>
+                <p>{data.title}</p>
+                <p>{data.date} - {data.hour}</p>
 
                 <h2>Ingressos</h2>
+                {array.map((a, i) =>
+                    <p key={i}>Assento {a}</p>
+                )}
 
                 <h2>Comprador</h2>
-                <p>{nameBuyer}</p>
-                <p>{cpfBuyer}</p>
+                <p>Nome: {data.nameBuyer}</p>
+                <p>CPF: {data.cpfBuyer}</p>
 
             </ContainerData>
 
@@ -47,7 +50,6 @@ const ContainerMain = styled.div`
     align-items: center;
     justify-content: center;
     margin-top: 65px;
-    margin-bottom: 150px; 
     font-family: 'Roboto', sans-serif;  
 h1 {    
     font-weight: 700;
@@ -70,12 +72,13 @@ button {
 const ContainerData = styled.div`
     font-size: 22px;
     color: #293845;
+    width:90%;
 h2 {
     font-weight: 700;    
     margin: 20px;
 }
 p {
     font-weight: 400;
-    margin: 10px 20px;
+    margin: 5px 20px;
 }
 `
