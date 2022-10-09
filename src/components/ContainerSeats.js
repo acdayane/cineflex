@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { useState } from "react";
 
 
-function ButtonSeat({ id, name, isAvailable}) {
+function ButtonSeat({ name, isAvailable}) {
 
 
-    const arrSeatSelected = [];
+    //const arrSeatSelected = [];
 
-    const [isSelected, setIsSelected] = useState(false)
+   const [isSelected, setIsSelected] = useState(false)
 
 
     
@@ -16,7 +16,7 @@ function ButtonSeat({ id, name, isAvailable}) {
         
 
        //if (isSelected === false) {
-            arrSeatSelected.push(numberSeat)
+           // arrSeatSelected.push(numberSeat)
         //}
 
         // else {
@@ -26,14 +26,14 @@ function ButtonSeat({ id, name, isAvailable}) {
         // }
         setIsSelected(!isSelected)
 
-        console.log(numberSeat)
-        console.log(isSelected)
-        console.log(arrSeatSelected)
+        //console.log(numberSeat)
+        //console.log(isSelected)
+        //console.log(arrSeatSelected)
     }
  
 
     return (
-        <li key={id}>
+        <li>
             {!isAvailable &&
                 <button style={{ backgroundColor: '#FBE192'}} onClick={() => alert('Esse assento não está disponível.')}>
                     {name}
@@ -41,7 +41,7 @@ function ButtonSeat({ id, name, isAvailable}) {
             }
             {isAvailable &&
                 (isSelected === true ? (
-                <button style={{ backgroundColor: '#1AAE9E'}} onClick={() => selectSeat(name)}>
+                <button style={{ backgroundColor: '#1AAE9E'}} onClick={() => (selectSeat(name))}>
                     {name}
                 </button>
                 ):(
@@ -56,7 +56,7 @@ function ButtonSeat({ id, name, isAvailable}) {
 }
 
 
-export default function ContainerSeats({ obj }) {
+export default function ContainerSeats({ key, obj, isSelected }) {
 
 
     return (

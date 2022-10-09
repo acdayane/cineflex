@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import Footer from "./FooterSeats";
+import FooterSeats from "./FooterSeats";
 import ContainerSeats from "./ContainerSeats";
 
 
@@ -26,7 +26,7 @@ export default function SeatsList() {
 
         promise.then(res => {
             setSeat(res.data);
-            //console.log(res.data)
+            console.log(res.data)
         });
 
         promise.catch(err => {
@@ -65,12 +65,16 @@ export default function SeatsList() {
 
 
     return (
-        <ContainerMain>
-
+        <ContainerMain>    
+ 
             <h1>Selecione o(s) assento(s)</h1>
 
             <ContainerSeats obj={seat} />
-
+        
+            {/* <SuccessPage title={seat.movie.title} date={seat.day.date}
+                hour={seat.name} nameBuyer={name} cpfBuyer={cpf}
+            /> */}
+       
             <ContainerButton>
                 <BoxButton>
                     <button style={{ backgroundColor: '#1AAE9E' }}></button>
@@ -87,6 +91,7 @@ export default function SeatsList() {
             </ContainerButton>
 
             <form onSubmit={reserveSeats}>
+
                 <BoxInput>
                     <label htmlFor="name">Nome do comprador:</label>
                     <input
@@ -111,9 +116,10 @@ export default function SeatsList() {
                 <ButtonReserve>
                     <button type="submit">Reservar assento(s)</button>
                 </ButtonReserve>
+                
             </form>
-
-            <Footer poster={seat.movie.posterURL} title={seat.movie.title}
+        
+            <FooterSeats poster={seat.movie.posterURL} title={seat.movie.title}
                 weekday={seat.day.weekday} hour={seat.name}
             />
 
@@ -132,7 +138,7 @@ const ContainerMain = styled.div`
     justify-content: center;
     margin-top: 65px;
     margin-bottom: 150px;
-    color: #293845;;
+    color: #293845;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
 h1 {    

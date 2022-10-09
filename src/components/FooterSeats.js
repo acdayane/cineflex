@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export default function Footer({ poster, title, weekday, hour }) {
+export default function FooterSeats({ poster, title, weekday, hour }) {
 
 
     return (
