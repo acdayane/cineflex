@@ -2,17 +2,21 @@ import styled from "styled-components";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import Footer from "./Footer";
+import Footer from "./FooterSeats";
 import ContainerSeats from "./ContainerSeats";
 
 
 export default function SeatsList() {
 
+    const ids = [50]
     const { idSessao } = useParams();
+    const navigate = useNavigate();
 
     const [seat, setSeat] = useState(null);
+    const [name, setName] = useState('');
+    const [cpf, setCPF] = useState('');
 
 
     useEffect(() => {
@@ -22,7 +26,7 @@ export default function SeatsList() {
 
         promise.then(res => {
             setSeat(res.data);
-            console.log(res.data)
+            //console.log(res.data)
         });
 
         promise.catch(err => {
@@ -40,12 +44,32 @@ export default function SeatsList() {
     }
 
 
+    function reserveSeats(e) {
+
+        e.preventDefault();
+
+        const URL = ('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many')
+        const body = { ids, name, cpf }
+
+        const promise = axios.post(URL, body)
+
+        promise.then(() => {
+            navigate(`/sessoes/${seat.movie.id}/assentos/${idSessao}/sucesso`);
+        })
+
+        promise.catch((err) => {
+            alert(err.response.data);
+        })
+
+    }
+
+
     return (
         <ContainerMain>
 
             <h1>Selecione o(s) assento(s)</h1>
 
-            <ContainerSeats obj={seat}/>
+            <ContainerSeats obj={seat} />
 
             <ContainerButton>
                 <BoxButton>
@@ -62,16 +86,32 @@ export default function SeatsList() {
                 </BoxButton>
             </ContainerButton>
 
-            <BoxInput>
-                <label for="name">Nome do comprador:</label>
-                <input type="text" id="name" placeholder="Digite seu nome" />
-                <label for="document">CPF do comprador:</label>
-                <input type="text" id="document" placeholder="Digite seu CPF" />           
-            </BoxInput> 
+            <form onSubmit={reserveSeats}>
+                <BoxInput>
+                    <label htmlFor="name">Nome do comprador:</label>
+                    <input
+                        type="text"
+                        id="name"
+                        value={name}
+                        placeholder="Digite seu nome"
+                        onChange={e => setName(e.target.value)}
+                        required
+                    />
+                    <label htmlFor="cpf">CPF do comprador:</label>
+                    <input
+                        type="text"
+                        id="cpf"
+                        value={cpf}
+                        placeholder="Digite seu CPF"
+                        onChange={e => setCPF(e.target.value)}
+                        required
+                    />
+                </BoxInput>
 
-            <ButtonReserve>
-                <button>Reservar assento(s)</button>
-            </ButtonReserve>
+                <ButtonReserve>
+                    <button type="submit">Reservar assento(s)</button>
+                </ButtonReserve>
+            </form>
 
             <Footer poster={seat.movie.posterURL} title={seat.movie.title}
                 weekday={seat.day.weekday} hour={seat.name}
@@ -107,8 +147,8 @@ const ContainerButton = styled.div`
     align-items: center;
     justify-content: center;
 button {
-    width: 25px;
-    height: 25px;
+    width: 26px;
+    height: 26px;
     font-size: 11px;
     margin: 5px;
     border-radius: 12px;
@@ -116,6 +156,14 @@ button {
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1); 
     cursor: initial;
 }
+`
+
+const BoxButton = styled.div`
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 13px;
+    margin: 15px;
 `
 
 const BoxInput = styled.div`
@@ -128,14 +176,6 @@ input {
     height: 45px;
     width: 225px;
 }
-`
-
-const BoxButton = styled.div`
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 13px;
-    margin: 15px;
 `
 
 const ButtonReserve = styled.div`

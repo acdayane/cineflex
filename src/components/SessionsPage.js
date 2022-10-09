@@ -28,9 +28,9 @@ export default function SessionsList() {
 
     if (sessions === null) {
         return (
-            <ContainerSessions>
+            <Loading>
                 <img src="http://2.bp.blogspot.com/-2RqriVTKhi4/UNnFBTiuzdI/AAAAAAAALK4/3-UccrBLu7w/s1600/Gif+Carregando+-+PremiumDesign3D+(9).gif" alt={'Carregando...'} />
-            </ContainerSessions>
+            </Loading>
         )
     }
 
@@ -57,6 +57,13 @@ export default function SessionsList() {
 
     )
 }
+
+
+const Loading = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 65px;
+`
 
 const ContainerSessions = styled.div`
     background-color: #FFFFFF;

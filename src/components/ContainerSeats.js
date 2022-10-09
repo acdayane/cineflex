@@ -1,30 +1,82 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 
-export default function ContainerSeats({obj}) {
+function ButtonSeat({ id, name, isAvailable}) {
+
+
+    const arrSeatSelected = [];
+
+    const [isSelected, setIsSelected] = useState(false)
+
 
     
+    function selectSeat(numberSeat) {     
+        
+        
+
+       //if (isSelected === false) {
+            arrSeatSelected.push(numberSeat)
+        //}
+
+        // else {
+        //     if (arrSeatSelected.includes(numberSeat)) {
+        //         arrSeatSelected.splice(arrSeatSelected.indexOf(numberSeat), 1);
+        //     }
+        // }
+        setIsSelected(!isSelected)
+
+        console.log(numberSeat)
+        console.log(isSelected)
+        console.log(arrSeatSelected)
+    }
+ 
+
+    return (
+        <li key={id}>
+            {!isAvailable &&
+                <button style={{ backgroundColor: '#FBE192'}} onClick={() => alert('Esse assento não está disponível.')}>
+                    {name}
+                </button>
+            }
+            {isAvailable &&
+                (isSelected === true ? (
+                <button style={{ backgroundColor: '#1AAE9E'}} onClick={() => selectSeat(name)}>
+                    {name}
+                </button>
+                ):(
+                <button onClick={() => selectSeat(name)}>
+                    {name}
+                </button>
+                ))                
+            }
+        </li>
+    )
+
+}
+
+
+export default function ContainerSeats({ obj }) {
+
+
     return (
 
-            <ContainerMain>
-                {obj.seats.map((s) =>
-                    <li key={s.id}>
-                        {!s.isAvailable &&
-                            <button style={{ backgroundColor: '#FBE192', cursor: 'initial'}}>{s.name}</button>
-                        }
-                        {s.isAvailable &&
-                            <button>{s.name}</button>
-                        }
-                    </li>
-                )}
-            </ContainerMain>
+        <ContainerMain>
+            {obj.seats.map((s) =>
+                <ButtonSeat
+                    key={s.id}
+                    name={s.name}
+                    isAvailable={s.isAvailable}                    
+                />
+            )}
+        </ContainerMain>
     )
 }
 
 const ContainerMain = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;  
+    justify-content: center; 
     flex-wrap: wrap;
     width: 90%;
 button {
