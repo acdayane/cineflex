@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-export default function ButtonSeat({ name, isAvailable, array }) {
+export default function ButtonSeat({ name, isAvailable, array, setArray }) {
 
 
     const [isSelected, setIsSelected] = useState(false);
@@ -10,14 +10,16 @@ export default function ButtonSeat({ name, isAvailable, array }) {
     function selectSeat(numberSeat) {
 
         if (isSelected === false) {
-
+            
             array.push(numberSeat);
             array.sort(compareNumbers);
+            const numberArray = array.map(Number);
+            const newArray = [...numberArray];
+            setArray(newArray);
 
             function compareNumbers(a, b) {
                 return a - b;
             }
-
         }
 
         else {

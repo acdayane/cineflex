@@ -8,11 +8,10 @@ import FooterSeats from "./FooterSeats";
 import ButtonSeat from "./ButtonSeat";
 
 
-export default function SeatsPage({data, setData, array}) {
+export default function SeatsPage({data, setData, array, setArray}) {
 
 
-    const ids = [array]
-    console.log(ids)
+    const ids = array;
     const { idSessao } = useParams();
     const navigate = useNavigate();
 
@@ -58,14 +57,14 @@ export default function SeatsPage({data, setData, array}) {
         const newData = (data);
         setData(newData);
 
-        const URL = ('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many')
-        const body = { ids, name, cpf }
-        console.log(body)
+        const URL = ('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many')
+        const body = { ids: ids, name: name, cpf: cpf }
+        //console.log(body)
 
         const promise = axios.post(URL, body)
 
         promise.then((res) => {
-            console.log(res.data)
+            //console.log(res.data)
             navigate(`/sessoes/${seat.movie.id}/assentos/${idSessao}/sucesso`);
         })
 
@@ -88,6 +87,7 @@ export default function SeatsPage({data, setData, array}) {
                         name={s.name}
                         isAvailable={s.isAvailable}
                         array={array}
+                        setArray={setArray}
                     />
                 )}
             </ContainerSeats>
@@ -121,7 +121,7 @@ export default function SeatsPage({data, setData, array}) {
                     />
                     <label htmlFor="cpf">CPF do comprador:</label>
                     <input
-                        type="text"
+                        type="number"
                         id="cpf"
                         value={cpf}
                         placeholder="Digite seu CPF"

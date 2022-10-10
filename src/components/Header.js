@@ -1,10 +1,14 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+
+    const navigate = useNavigate();
+
     return (
 
         <ContainerHeader>
-            <h1>CINEFLEX</h1>
+            <h1 onClick={(() => navigate(`/`))}>CINEFLEX</h1>
         </ContainerHeader>
     )
 }
@@ -25,5 +29,6 @@ h1 {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 34px;
+    cursor: pointer;
 } 
 `

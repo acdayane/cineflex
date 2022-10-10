@@ -2,13 +2,16 @@ import styled from "styled-components"
 import { useNavigate } from "react-router-dom";
 
 
-export default function SuccessPage({data, array}) {
+export default function SuccessPage({data, array, setArray}) {
 
 
     const navigate = useNavigate();
 
     function backHome() {
-        navigate('/')
+        array = [];
+        const newArray = [...array]
+        setArray(newArray)
+        navigate('/');
     }
 
 
@@ -30,7 +33,7 @@ export default function SuccessPage({data, array}) {
                 )}
 
                 <h2>Comprador</h2>
-                <p>Nome: {data.nameBuyer}</p>
+                <p>Nome: {data.nameBuyer.toUpperCase()}</p>
                 <p>CPF: {data.cpfBuyer}</p>
 
             </ContainerData>

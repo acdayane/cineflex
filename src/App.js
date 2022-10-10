@@ -8,7 +8,7 @@ import SessionsPage from "./components/SessionsPage";
 import SeatsPage from "./components/SeatsPage";
 import SuccessPage from "./components/SuccessPage";
 
-const dataSuccessPage = {title: "a", date: "a", hour: "a", nameBuyer: "a", cpfBuyer: "a" }
+const dataSuccessPage = {title: "", date: "", hour: "", nameBuyer: "", cpfBuyer: "" }
 const selected = []
 
 export default function App() {
@@ -30,6 +30,7 @@ export default function App() {
                             data={data}
                             setData={setData}
                             array={array}
+                            setArray={setArray}
                         />
                     }
                 />
@@ -39,6 +40,7 @@ export default function App() {
                         <SuccessPage            
                             data={data}
                             array={array}
+                            setArray={setArray}
                         />
                     }
                 />
