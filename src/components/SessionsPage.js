@@ -42,8 +42,8 @@ export default function SessionsPage() {
                 <li key={s.id}>
                     <h2>{s.weekday} - {s.date}</h2>
                     {s.showtimes.map((st) =>
-                        <Link to={`/sessoes/${idFilme}/assentos/${st.id}`}>
-                            <button key={st.id}>{st.name}</button>
+                        <Link to={`/sessoes/${idFilme}/assentos/${st.id}`} key={st.id} >
+                            <button>{st.name}</button>
                         </Link>)}
                 </li>
             )}

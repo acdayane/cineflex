@@ -11,11 +11,14 @@ import SuccessPage from "./components/SuccessPage";
 const dataSuccessPage = {title: "", date: "", hour: "", nameBuyer: "", cpfBuyer: "" }
 const selected = []
 
+
 export default function App() {
 
     const [data, setData] = useState(dataSuccessPage)
     const [array, setArray] = useState(selected)
+    const [seatId, setSeatId] = useState([]);
 
+    console.log(seatId)
     return (
         <BrowserRouter>
             <GlobalStyle />
@@ -31,6 +34,8 @@ export default function App() {
                             setData={setData}
                             array={array}
                             setArray={setArray}
+                            seatId={seatId}
+                            setSeatId={setSeatId}
                         />
                     }
                 />

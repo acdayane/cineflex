@@ -8,17 +8,17 @@ import FooterSeats from "./FooterSeats";
 import ButtonSeat from "./ButtonSeat";
 
 
-export default function SeatsPage({data, setData, array, setArray}) {
+export default function SeatsPage({seatId, setSeatId, data, setData, array, setArray}) {
 
 
-    const ids = array;
+    const ids = seatId;
     const { idSessao } = useParams();
     const navigate = useNavigate();
 
     const [seat, setSeat] = useState(null);
     const [name, setName] = useState('');
     const [cpf, setCPF] = useState('');
-
+    
 
     useEffect(() => {
 
@@ -27,7 +27,7 @@ export default function SeatsPage({data, setData, array, setArray}) {
 
         promise.then(res => {
             setSeat(res.data);
-            console.log(res.data)
+            //console.log(res.data)
         });
 
         promise.catch(err => {
@@ -57,14 +57,14 @@ export default function SeatsPage({data, setData, array, setArray}) {
         const newData = (data);
         setData(newData);
 
-        const URL = ('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many')
+        const URL = ('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many')
         const body = { ids: ids, name: name, cpf: cpf }
-        //console.log(body)
+        console.log(body)
 
         const promise = axios.post(URL, body)
 
         promise.then((res) => {
-            //console.log(res.data)
+            console.log(res.data)
             navigate(`/sessoes/${seat.movie.id}/assentos/${idSessao}/sucesso`);
         })
 
@@ -84,10 +84,13 @@ export default function SeatsPage({data, setData, array, setArray}) {
                 {seat.seats.map((s) =>
                     <ButtonSeat
                         key={s.id}
+                        id={s.id}
                         name={s.name}
                         isAvailable={s.isAvailable}
                         array={array}
                         setArray={setArray}
+                        seatId={seatId}
+                        setSeatId={setSeatId}
                     />
                 )}
             </ContainerSeats>
