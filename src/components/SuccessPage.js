@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { useNavigate } from "react-router-dom";
 
 
-export default function SuccessPage({data, array, setArray}) {
+export default function SuccessPage({data, array, setArray, setSeatId}) {
 
 
     const navigate = useNavigate();
@@ -11,6 +11,7 @@ export default function SuccessPage({data, array, setArray}) {
         array = [];
         const newArray = [...array]
         setArray(newArray)
+        setSeatId(newArray);
         navigate('/');
     }
 

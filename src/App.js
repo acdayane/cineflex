@@ -9,16 +9,16 @@ import SeatsPage from "./components/SeatsPage";
 import SuccessPage from "./components/SuccessPage";
 
 const dataSuccessPage = {title: "", date: "", hour: "", nameBuyer: "", cpfBuyer: "" }
-const selected = []
 
 
 export default function App() {
 
     const [data, setData] = useState(dataSuccessPage)
-    const [array, setArray] = useState(selected)
+    const [array, setArray] = useState([])
     const [seatId, setSeatId] = useState([]);
 
     console.log(seatId)
+    console.log(array)
     return (
         <BrowserRouter>
             <GlobalStyle />
@@ -46,6 +46,8 @@ export default function App() {
                             data={data}
                             array={array}
                             setArray={setArray}
+                            seatId={seatId}
+                            setSeatId={setSeatId}
                         />
                     }
                 />
